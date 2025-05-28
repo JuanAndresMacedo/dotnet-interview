@@ -43,15 +43,10 @@ namespace TodoApi.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> PutTodoList(long id, UpdateTodoList payload)
         {
-            var todoList = await _context.TodoList.FindAsync(id);
+            var todoList = await _todoListService.UpdateAsync(id, payload);
 
             if (todoList == null)
-            {
                 return NotFound();
-            }
-
-            todoList.Name = payload.Name;
-            await _context.SaveChangesAsync();
 
             return Ok(todoList);
         }

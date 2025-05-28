@@ -56,5 +56,22 @@ namespace TodoApi.BusinessLogic.TodoLists
                 Name = todoList.Name
             };
         }
+
+        public async Task<TodoListDto?> UpdateAsync(long id, UpdateTodoList payload)
+        {
+            var todoList = await _context.TodoList.FindAsync(id);
+
+            if (todoList == null)
+                return null;
+
+            todoList.Name = payload.Name;
+            await _context.SaveChangesAsync();
+
+            return new TodoListDto
+            {
+                Id = todoList.Id,
+                Name = todoList.Name
+            };
+        }
     }
 }
