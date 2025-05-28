@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using TodoApi.BusinessLogic.TodoLists;
 using TodoApi.Dtos;
 using TodoApi.Models;
 
@@ -10,10 +11,12 @@ namespace TodoApi.Controllers
     public class TodoListsController : ControllerBase
     {
         private readonly TodoContext _context;
+        private readonly ITodoListService _todoListService;
 
-        public TodoListsController(TodoContext context)
+        public TodoListsController(TodoContext context, ITodoListService todoListService)
         {
             _context = context;
+            _todoListService = todoListService;
         }
 
         // GET: api/todolists
@@ -58,14 +61,15 @@ namespace TodoApi.Controllers
         // POST: api/todolists
         // To protect from over-posting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<TodoList>> PostTodoList(CreateTodoList payload)
+        public async Task<ActionResult<TodoListDto>> PostTodoList(CreateTodoList payload)
         {
-            var todoList = new TodoList { Name = payload.Name };
+            TodoListDto created = await _todoListService.CreateAsync(payload);
 
-            _context.TodoList.Add(todoList);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTodoList", new { id = todoList.Id }, todoList);
+            return CreatedAtAction(
+                "GetTodoList",
+                new { id = created.Id },
+                created
+            );
         }
 
         // DELETE: api/todolists/5
