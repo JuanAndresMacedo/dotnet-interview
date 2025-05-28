@@ -1,5 +1,6 @@
 ﻿using TodoApi.Models;
 using TodoApi.Dtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace TodoApi.BusinessLogic.TodoLists
 {
@@ -27,6 +28,17 @@ namespace TodoApi.BusinessLogic.TodoLists
                 Id = todoList.Id,
                 Name = todoList.Name
             };
+        }
+
+        public async Task<IList<TodoListDto>> GetAllAsync()
+        {
+            return await _context.TodoList.AsNoTracking()
+                .Select(t => new TodoListDto
+                {
+                    Id = t.Id,
+                    Name = t.Name
+                })
+                .ToListAsync();
         }
     }
 }
