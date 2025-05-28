@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using TodoApi.BusinessLogic.TodoLists;
 using TodoApi.Dtos;
 using TodoApi.Models;
@@ -10,12 +9,10 @@ namespace TodoApi.Controllers
     [ApiController]
     public class TodoListsController : ControllerBase
     {
-        private readonly TodoContext _context;
         private readonly ITodoListService _todoListService;
 
-        public TodoListsController(TodoContext context, ITodoListService todoListService)
+        public TodoListsController(ITodoListService todoListService)
         {
-            _context = context;
             _todoListService = todoListService;
         }
 
@@ -75,11 +72,6 @@ namespace TodoApi.Controllers
                 return NotFound();
 
             return NoContent();
-        }
-
-        private bool TodoListExists(long id)
-        {
-            return (_context.TodoList?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
