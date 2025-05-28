@@ -73,5 +73,18 @@ namespace TodoApi.BusinessLogic.TodoLists
                 Name = todoList.Name
             };
         }
+
+        public async Task<bool> DeleteAsync(long id)
+        {
+            var todoList = await _context.TodoList.FindAsync(id);
+            
+            if (todoList == null)
+                return false;
+
+            _context.TodoList.Remove(todoList);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

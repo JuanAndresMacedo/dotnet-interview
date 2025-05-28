@@ -43,12 +43,12 @@ namespace TodoApi.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> PutTodoList(long id, UpdateTodoList payload)
         {
-            var todoList = await _todoListService.UpdateAsync(id, payload);
+            var todoListUpdated = await _todoListService.UpdateAsync(id, payload);
 
-            if (todoList == null)
+            if (todoListUpdated == null)
                 return NotFound();
 
-            return Ok(todoList);
+            return Ok(todoListUpdated);
         }
 
         // POST: api/todolists
@@ -69,14 +69,10 @@ namespace TodoApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteTodoList(long id)
         {
-            var todoList = await _context.TodoList.FindAsync(id);
-            if (todoList == null)
-            {
-                return NotFound();
-            }
+            var todoListDeleted = await _todoListService.DeleteAsync(id);
 
-            _context.TodoList.Remove(todoList);
-            await _context.SaveChangesAsync();
+            if (!todoListDeleted)
+                return NotFound();
 
             return NoContent();
         }
