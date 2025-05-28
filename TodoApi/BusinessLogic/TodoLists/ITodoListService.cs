@@ -6,5 +6,6 @@ namespace TodoApi.BusinessLogic.TodoLists
     {
         Task<TodoListDto> CreateAsync(CreateTodoList payload);
         Task<IList<TodoListDto>> GetAllAsync();
+        Task<TodoListDto?> GetByIdAsync(long id);
     }
 }

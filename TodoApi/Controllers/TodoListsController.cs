@@ -30,12 +30,10 @@ namespace TodoApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TodoList>> GetTodoList(long id)
         {
-            var todoList = await _context.TodoList.FindAsync(id);
-
+            var todoList = await _todoListService.GetByIdAsync(id);
+            
             if (todoList == null)
-            {
                 return NotFound();
-            }
 
             return Ok(todoList);
         }

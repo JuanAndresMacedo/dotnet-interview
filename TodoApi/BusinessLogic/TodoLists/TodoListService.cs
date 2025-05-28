@@ -40,5 +40,21 @@ namespace TodoApi.BusinessLogic.TodoLists
                 })
                 .ToListAsync();
         }
+
+        public async Task<TodoListDto?> GetByIdAsync(long id)
+        {
+            var todoList = await _context.TodoList
+               .AsNoTracking()
+               .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (todoList == null)
+                return null;
+
+            return new TodoListDto
+            {
+                Id = todoList.Id,
+                Name = todoList.Name
+            };
+        }
     }
 }
