@@ -68,6 +68,21 @@ namespace TodoApi.BusinessLogic.TodoItems
 
             todoItem.IsCompleted = true;
             await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> DeleteAsync(long todoListId, long todoItemId)
+        {
+            var todoItem = await _context.TodoItem
+                .FirstOrDefaultAsync(i => i.Id == todoItemId && i.TodoListId == todoListId);
+
+            if (todoItem == null)
+                return false;
+
+            _context.TodoItem.Remove(todoItem);
+            await _context.SaveChangesAsync();
+
             return true;
         }
     }

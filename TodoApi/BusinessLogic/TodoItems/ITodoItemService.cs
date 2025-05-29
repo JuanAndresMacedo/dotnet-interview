@@ -6,7 +6,8 @@ namespace TodoApi.BusinessLogic.TodoItems
     {
         Task<TodoItemDto?> CreateAsync(long todoListId, CreateTodoItem payload);
         Task<TodoItemDto?> UpdateDescriptionAsync(long todoListId,
-            long itemId, UpdateTodoItem payload);
-        Task<bool> CompleteAsync(long todoListId, long itemId);
+            long todoItemId, UpdateTodoItem payload);
+        Task<bool> CompleteAsync(long todoListId, long todoItemId);
+        Task<bool> DeleteAsync(long todoListId, long todoItemId);
     }
 }
