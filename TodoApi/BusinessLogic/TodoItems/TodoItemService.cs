@@ -38,11 +38,11 @@ namespace TodoApi.BusinessLogic.TodoItems
             };
         }
 
-        public async Task<TodoItemDto?> UpdateDescriptionAsync(long todoListId, long itemId,
+        public async Task<TodoItemDto?> UpdateDescriptionAsync(long todoListId, long todoItemId,
             UpdateTodoItem payload)
         {
             var todoItem = await _context.TodoItem
-                .FirstOrDefaultAsync(x => x.Id == itemId && x.TodoListId == todoListId);
+                .FirstOrDefaultAsync(i => i.Id == todoItemId && i.TodoListId == todoListId);
 
             if (todoItem == null)
                 return null;
@@ -56,6 +56,19 @@ namespace TodoApi.BusinessLogic.TodoItems
                 Description = todoItem.Description,
                 IsCompleted = todoItem.IsCompleted
             };
+        }
+
+        public async Task<bool> CompleteAsync(long todoListId, long todoItemId)
+        {
+            var todoItem = await _context.TodoItem
+                .FirstOrDefaultAsync(i => i.Id == todoItemId && i.TodoListId == todoListId);
+
+            if (todoItem == null)
+                return false;
+
+            todoItem.IsCompleted = true;
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }
