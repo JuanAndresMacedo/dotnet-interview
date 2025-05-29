@@ -60,9 +60,7 @@ namespace TodoApi.Controllers
         }
 
         [HttpPut("{itemId}/complete")]
-        public async Task<ActionResult> PutTodoItemIsCompleted(
-            long todoListId,
-            long todoItemId)
+        public async Task<ActionResult> PutTodoItemIsCompleted(long todoListId, long todoItemId)
         {
             var updated = await _todoItemService.CompleteAsync(todoListId, todoItemId);
 
@@ -73,9 +71,7 @@ namespace TodoApi.Controllers
         }
 
         [HttpDelete("{todoItemId}")]
-        public async Task<ActionResult> DeleteItem(
-            long todoListId,
-            long todoItemId)
+        public async Task<ActionResult> DeleteItem(long todoListId, long todoItemId)
         {
             var deleted = await _todoItemService.DeleteAsync(todoListId, todoItemId);
 
