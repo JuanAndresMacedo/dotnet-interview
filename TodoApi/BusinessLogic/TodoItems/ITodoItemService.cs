@@ -5,6 +5,7 @@ namespace TodoApi.BusinessLogic.TodoItems
     public interface ITodoItemService
     {
         Task<TodoItemDto?> CreateAsync(long todoListId, CreateTodoItem payload);
+        Task<TodoItemDto?> GetByIdAsync(long todoListId, long todoItemId);
         Task<TodoItemDto?> UpdateDescriptionAsync(long todoListId,
             long todoItemId, UpdateTodoItem payload);
         Task<bool> CompleteAsync(long todoListId, long todoItemId);

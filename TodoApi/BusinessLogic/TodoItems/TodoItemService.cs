@@ -13,6 +13,22 @@ namespace TodoApi.BusinessLogic.TodoItems
             _context = context;
         }
 
+        public async Task<TodoItemDto?> GetByIdAsync(long todoListId, long todoItemId)
+        {
+            var todoItem = await _context.TodoItem.AsNoTracking()
+                .FirstOrDefaultAsync(i => i.Id == todoItemId && i.TodoListId == todoListId);
+
+            if (todoItem == null)
+                return null;
+
+            return new TodoItemDto
+            {
+                Id = todoItem.Id,
+                Description = todoItem.Description,
+                IsCompleted = todoItem.IsCompleted
+            };
+        }
+
         public async Task<TodoItemDto?> CreateAsync(long todoListId, CreateTodoItem payload)
         {
             var todoList = await _context.TodoList.FindAsync(todoListId);

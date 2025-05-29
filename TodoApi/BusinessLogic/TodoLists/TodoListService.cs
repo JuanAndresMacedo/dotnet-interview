@@ -1,6 +1,7 @@
 ﻿using TodoApi.Models;
 using Microsoft.EntityFrameworkCore;
 using TodoApi.Dtos.TodoListDtos;
+using TodoApi.Dtos.TodoItemDtos;
 
 namespace TodoApi.BusinessLogic.TodoLists
 {
@@ -36,7 +37,13 @@ namespace TodoApi.BusinessLogic.TodoLists
                 .Select(t => new TodoListDto
                 {
                     Id = t.Id,
-                    Name = t.Name
+                    Name = t.Name,
+                    Items = t.Items.Select(item => new TodoItemDto
+                    {
+                        Id = item.Id,
+                        Description = item.Description,
+                        IsCompleted = item.IsCompleted
+                    }).ToList()
                 })
                 .ToListAsync();
         }
