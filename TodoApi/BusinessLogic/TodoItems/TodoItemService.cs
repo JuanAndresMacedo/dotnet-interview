@@ -1,4 +1,5 @@
-﻿using TodoApi.Dtos.TodoItemDtos;
+﻿using Microsoft.EntityFrameworkCore;
+using TodoApi.Dtos.TodoItemDtos;
 using TodoApi.Dtos.TodoListDtos;
 using TodoApi.Models;
 
@@ -13,20 +14,47 @@ namespace TodoApi.BusinessLogic.TodoItems
             _context = context;
         }
 
-        public Task<TodoItemDto> CreateAsync(CreateTodoItem payload)
+        public async Task<TodoItemDto?> CreateAsync(long todoListId, CreateTodoItem payload)
         {
-            TodoList todoList = new TodoList
+            var todoList = await _context.TodoList.FindAsync(todoListId);
+
+            if (todoList == null)
+                return null;
+
+            var todoItem = new TodoItem
             {
-                Name = payload.Name
+                Description = payload.Description,
+                TodoListId = todoListId
             };
 
-            _context.TodoItem.Add(todoList);
+            _context.TodoItem.Add(todoItem);
             await _context.SaveChangesAsync();
 
-            return new TodoListDto
+            return new TodoItemDto
             {
-                Id = todoList.Id,
-                Name = todoList.Name
+                Id = todoItem.Id,
+                Description = todoItem.Description,
+                IsCompleted = todoItem.IsCompleted
+            };
+        }
+
+        public async Task<TodoItemDto?> UpdateDescriptionAsync(long todoListId, long itemId,
+            UpdateTodoItem payload)
+        {
+            var todoItem = await _context.TodoItem
+                .FirstOrDefaultAsync(x => x.Id == itemId && x.TodoListId == todoListId);
+
+            if (todoItem == null)
+                return null;
+
+            todoItem.Description = payload.Description;
+            await _context.SaveChangesAsync();
+
+            return new TodoItemDto
+            {
+                Id = todoItem.Id,
+                Description = todoItem.Description,
+                IsCompleted = todoItem.IsCompleted
             };
         }
     }
