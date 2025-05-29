@@ -52,7 +52,7 @@ namespace TodoApi.Controllers
         {
             var updated = await _todoItemService.UpdateDescriptionAsync(
                 todoListId, todoItemId, payload);
-            
+
             if (updated == null)
                 return NotFound();
 
@@ -65,8 +65,21 @@ namespace TodoApi.Controllers
             long todoItemId)
         {
             var updated = await _todoItemService.CompleteAsync(todoListId, todoItemId);
-            
+
             if (!updated)
+                return NotFound();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{todoItemId}")]
+        public async Task<ActionResult> DeleteItem(
+            long todoListId,
+            long todoItemId)
+        {
+            var deleted = await _todoItemService.DeleteAsync(todoListId, todoItemId);
+
+            if (!deleted)
                 return NotFound();
 
             return NoContent();
