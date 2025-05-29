@@ -4,5 +4,6 @@
     {
         public long Id { get; set; }
         public required string Name { get; set; }
+        public List<TodoItemDto> Items { get; set; } = new();
     }
 }
