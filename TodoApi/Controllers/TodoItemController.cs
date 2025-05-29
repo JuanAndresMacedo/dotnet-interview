@@ -16,7 +16,6 @@ namespace TodoApi.Controllers
             _todoItemService = todoItemService;
         }
 
-        // GET: api/todolists/5
         [HttpGet("{todoItemId}")]
         public async Task<ActionResult<TodoList>> GetTodoItem(long todoListId,
             long todoItemId)
@@ -43,6 +42,20 @@ namespace TodoApi.Controllers
                 new { todoListId = todoListId, todoItemId = created.Id },
                 created
             );
+        }
+
+        [HttpPut("{todoItemId}")]
+        public async Task<ActionResult<TodoItemDto>> UpdateItem(long todoListId,
+            long todoItemId,
+            UpdateTodoItem payload)
+        {
+            var updated = await _todoItemService.UpdateDescriptionAsync(
+                todoListId, todoItemId, payload);
+            
+            if (updated == null)
+                return NotFound();
+
+            return Ok(updated);
         }
     }
 }
