@@ -1,4 +1,4 @@
-﻿using TodoApi.Dtos;
+﻿using TodoApi.Dtos.TodoListDtos;
 
 namespace TodoApi.BusinessLogic.TodoLists
 {

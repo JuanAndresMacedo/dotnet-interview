@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TodoApi.BusinessLogic.TodoLists;
-using TodoApi.Dtos;
+using TodoApi.Dtos.TodoListDtos;
 using TodoApi.Models;
 
 namespace TodoApi.Tests.Services
