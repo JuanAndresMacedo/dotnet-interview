@@ -45,7 +45,8 @@ namespace TodoApi.Controllers
         }
 
         [HttpPut("{todoItemId}")]
-        public async Task<ActionResult<TodoItemDto>> UpdateItem(long todoListId,
+        public async Task<ActionResult<TodoItemDto>> PutTodoItemDescription(
+            long todoListId,
             long todoItemId,
             UpdateTodoItem payload)
         {
@@ -56,6 +57,19 @@ namespace TodoApi.Controllers
                 return NotFound();
 
             return Ok(updated);
+        }
+
+        [HttpPut("{itemId}/complete")]
+        public async Task<ActionResult> PutTodoItemIsCompleted(
+            long todoListId,
+            long todoItemId)
+        {
+            var updated = await _todoItemService.CompleteAsync(todoListId, todoItemId);
+            
+            if (!updated)
+                return NotFound();
+
+            return NoContent();
         }
     }
 }
