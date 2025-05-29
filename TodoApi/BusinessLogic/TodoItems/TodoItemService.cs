@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TodoApi.Dtos.TodoItemDtos;
-using TodoApi.Dtos.TodoListDtos;
 using TodoApi.Models;
 
 namespace TodoApi.BusinessLogic.TodoItems
