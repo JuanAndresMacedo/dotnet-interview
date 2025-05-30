@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using TodoApi.BusinessLogic.TodoLists;
 using TodoApi.Controllers;
 using Moq;
-using TodoApi.Dtos;
 using TodoApi.Dtos.TodoListDtos;
 
 namespace TodoApi.Tests;
