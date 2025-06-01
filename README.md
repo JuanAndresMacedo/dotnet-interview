@@ -20,14 +20,14 @@ dotnet ef database update
 # Correr la API
 dotnet run
 
-# o
+# o en caso de que la ruta en la terminal sea /app
 
 dotnet run --project TodoApi
 ```
 
 ## Test
 
-Se realizaron tests tanto para los nuevos servicios implementados (en la próxima sección será explicado), como para los controlllers.
+Se realizaron tests tanto para los nuevos servicios implementados (en la próxima sección será explicado), como para los controllers.
 
 Para correr los tests:
 
@@ -120,4 +120,6 @@ Ampliar los casos de prueba cubriendo escenarios de error y otros flujos inesper
 
 ## Experiencia de Implementación
 
-Esta parte del desafío fue muy disfrutable, ya que había trabajado con APIs en .NET anteriormente. Sin embargo, dedicar tiempo a familiarizarme con DevContainer fue necesario (nunca había visto este concepto), pero al final, resultó sumamente útil porque me permitió ejecutar tanto la aplicación como la base de datos en Docker sin tener que configurar nada externamente. En líneas generales, estoy conforme con el resultado; con más tiempo se podrían haber implementado aún más mejoras
+Esta parte del desafío fue muy disfrutable, ya que había trabajado con APIs en .NET anteriormente. Sin embargo, fue necesario dedicar tiempo a familiarizarme con la herramienta DevContainer (nunca la había utilizado), que al final resultó sumamente útil porque me permitió ejecutar tanto la aplicación como la base de datos en Docker sin tener que configurar nada externamente. 
+
+En líneas generales, estoy conforme con el resultado, con más tiempo se podrían haber implementado aún más mejoras.
