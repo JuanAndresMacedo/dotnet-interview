@@ -59,7 +59,7 @@ namespace TodoApi.Controllers
             return Ok(updated);
         }
 
-        [HttpPut("{itemId}/complete")]
+        [HttpPut("{todoItemId}/complete")]
         public async Task<ActionResult> PutTodoItemIsCompleted(long todoListId, long todoItemId)
         {
             var updated = await _todoItemService.CompleteAsync(todoListId, todoItemId);
